@@ -2,12 +2,12 @@
 
 ## Antes do início
 
-- [ ] Modalidade definida: obrigatório ou não obrigatório.
+- [x] Modalidade definida: obrigatório, sem remuneração. Ver [`docs/dados-do-estagio.md`](dados-do-estagio.md).
 - [ ] Pré-requisitos acadêmicos confirmados.
-- [ ] Horário e carga horária compatíveis com as aulas.
+- [ ] Horário e carga horária compatíveis com as aulas. Horário definido (ver [`docs/dados-do-estagio.md`](dados-do-estagio.md)); falta confirmar compatibilidade com a grade de aulas.
 - [ ] Convênio ou agente de integração confirmado.
-- [ ] Supervisor da concedente definido.
-- [ ] Professor orientador/PRAE identificado.
+- [x] Supervisor da concedente definido: Mauro (advogado).
+- [x] Professor orientador/PRAE identificado: Gisele Santana.
 - [ ] TCE preenchido e assinado pelas partes necessárias.
 - [ ] PAE elaborado e aprovado previamente.
 - [ ] Seguro e documentos adicionais conferidos.
