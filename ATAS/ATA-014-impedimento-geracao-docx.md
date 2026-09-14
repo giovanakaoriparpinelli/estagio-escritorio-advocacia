@@ -1,6 +1,6 @@
 # ATA 014 — Impedimento identificado na geração do DOCX
 
-**Data:** 14/09/2026  
+**Data:** 08/09/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 013
 

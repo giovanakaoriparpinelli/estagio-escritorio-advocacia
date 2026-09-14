@@ -1,6 +1,6 @@
 # ATA 003 — Registro contínuo do desenvolvimento
 
-**Data:** 14/09/2026  
+**Data:** 22/06/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Participantes:** Contratante/advogado; estagiário de Engenharia de Software (IA assistida)  
 **Referências:** ATA 001 e ATA 002

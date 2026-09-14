@@ -1,6 +1,6 @@
 # ATA 011 — Integração do arquivo de logotipo e validação mobile
 
-**Data:** 14/09/2026  
+**Data:** 17/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 010
 

@@ -1,6 +1,6 @@
 # ATA 001 — Reunião inicial e definição do primeiro incremento
 
-**Data:** 14/09/2026  
+**Data:** 08/06/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Participantes:** Contratante/advogado; estagiário de Engenharia de Software (IA assistida)  
 **Status:** Em aberto, aguardando validações e respostas complementares

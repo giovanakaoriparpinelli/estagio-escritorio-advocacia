@@ -1,6 +1,6 @@
 # ATA 010 — Validação do Markdown e requisito mobile
 
-**Data:** 14/09/2026  
+**Data:** 10/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 009
 

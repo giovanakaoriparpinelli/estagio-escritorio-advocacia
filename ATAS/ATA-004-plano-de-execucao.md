@@ -1,6 +1,6 @@
 # ATA 004 — Plano de execução do primeiro incremento
 
-**Data:** 14/09/2026  
+**Data:** 29/06/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Status:** Plano aprovado para início da execução
 

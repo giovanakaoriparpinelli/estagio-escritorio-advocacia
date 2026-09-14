@@ -1,6 +1,6 @@
 # ATA 005 — Definição da primeira minuta do protótipo
 
-**Data:** 14/09/2026  
+**Data:** 06/07/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 004
 
