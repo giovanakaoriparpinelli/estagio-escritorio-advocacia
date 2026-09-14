@@ -1,6 +1,6 @@
 # Projeto de Estágio — Engenharia de Software
 
-Repositório inicial para organizar o estágio de um estudante de Engenharia de Software da UTFPR — Campus Cornélio Procópio.
+Repositório para organizar meu estágio obrigatório, em um escritório de advocacia, para o curso de Engenharia de Software da UTFPR — Campus Cornélio Procópio.
 
 ## Objetivos iniciais
 
