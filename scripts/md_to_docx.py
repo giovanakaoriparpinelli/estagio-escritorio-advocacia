@@ -56,7 +56,7 @@ def convert(source: Path, template: Path, destination: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("markdown", type=Path)
-    parser.add_argument("--template", type=Path, default=Path("modelo timbrado.docx"))
+    parser.add_argument("--template", type=Path, default=Path("identidade-visual/modelo timbrado.docx"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     convert(args.markdown, args.template, args.output)

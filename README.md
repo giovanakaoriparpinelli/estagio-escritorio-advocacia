@@ -11,11 +11,13 @@ Repositório para organizar meu estágio obrigatório, em um escritório de advo
 
 ## Estrutura
 
-- [`docs/regras-estagio.md`](docs/regras-estagio.md): regras e premissas atualmente consideradas.
-- [`docs/plano-de-atividades.md`](docs/plano-de-atividades.md): proposta inicial de plano de atividades.
-- [`docs/checklist-formalizacao.md`](docs/checklist-formalizacao.md): checklist de formalização e acompanhamento.
+- [`docs/`](docs/): documentação viva do projeto (regras, plano de atividades, requisitos, checklist de formalização e demais registros técnicos).
+- [`ATAS/`](ATAS/): atas numeradas de cada sessão com decisão, entrega ou pendência (em `.md`, `.html` e `.pdf`).
+- [`prototype/`](prototype/): protótipo web navegável (HTML/CSS) do sistema.
+- [`scripts/`](scripts/) e [`services/`](services/): automação Python, incluindo a conversão de Markdown para DOCX.
+- [`identidade-visual/`](identidade-visual/): logotipo (`LOGO.png`) e modelo timbrado (`modelo timbrado.docx`) usados na geração de documentos.
+- [`relatorios/`](relatorios/): versões do relatório de estágio.
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md): princípios técnicos para qualquer implementação neste repositório.
-- [`ATAS/ATA-001-reuniao-inicial.pdf`](ATAS/ATA-001-reuniao-inicial.pdf): registro da reunião inicial e das perguntas pendentes.
 - [`AGENTS.md`](AGENTS.md): persona persistente do estagiário de Engenharia de Software.
 
 ## Próximos passos

@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.md_to_docx import convert
 
 ROOT = Path(__file__).resolve().parents[1]
-TEMPLATE = ROOT / "modelo timbrado.docx"
+TEMPLATE = ROOT / "identidade-visual" / "modelo timbrado.docx"
 
 
 class Handler(BaseHTTPRequestHandler):
