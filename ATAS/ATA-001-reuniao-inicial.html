@@ -12,6 +12,8 @@ h2 { color: #17365d; font-size: 14pt; margin-top: 20px; }
 li { margin-bottom: 5px; }
 code { font-family: Consolas, monospace; background: #f1f1f1; padding: 2px 4px; }
 .footer { margin-top: 28px; font-size: 9pt; color: #666; border-top: 1px solid #ccc; padding-top: 8px; }
+img { max-width: 100%; margin: 8px 0; }
+.note { font-size: 9.5pt; color: #444; font-style: italic; }
 </style>
 </head>
 <body>
@@ -35,6 +37,11 @@ code { font-family: Consolas, monospace; background: #f1f1f1; padding: 2px 4px; 
 <ul><li>Contratante: fornecer o DOCX timbrado e responder às perguntas.</li><li>Estagiário: preparar arquitetura visual e levantamento de telas.</li><li>Ambos: validar o MVP antes das automações com IA.</li><li>Contratante: confirmar as regras do estágio com a UTFPR.</li></ul>
 <h2>8. Segurança e responsabilidade</h2>
 <p>O sistema tratará dados pessoais e informações processuais. O contratante conduzirá a análise jurídica de LGPD. No desenvolvimento, serão usados dados fictícios ou anonimizados; textos produzidos por IA serão rascunhos sujeitos à revisão do advogado.</p>
+<h2>9. Anexo técnico — modelo de dados e atores (detalhado posteriormente)</h2>
+<p>As entidades citadas no item 4 (cliente, processo, prazos) e os perfis do item 3 (advogados) evoluíram, ao longo do estágio, para o modelo de dados e o mapeamento de atores abaixo, documentados em detalhe em <code>docs/modelo-de-dados.md</code> e <code>docs/atores-e-usuarios.md</code>.</p>
+<img src="../docs/diagramas/modelo-de-dados.png" alt="Diagrama de entidades e relacionamentos">
+<img src="../docs/diagramas/atores-e-usuarios.png" alt="Diagrama de atores e fluxo de aprovação">
+<p class="note">Este anexo foi acrescentado após a reunião, para consolidar o raciocínio técnico que partiu das respostas registradas aqui. O perfil "advogado" do diagrama de atores cobre ambos os usuários iniciais listados no item 3.</p>
 <div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div>
 </body>
 </html>

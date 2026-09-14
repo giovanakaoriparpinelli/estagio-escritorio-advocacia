@@ -53,3 +53,11 @@ O estagiário deverá preparar a primeira proposta do layout. Antes da implement
 ## 4. Limites desta fase
 
 Não serão usados processos reais, não haverá protocolo automático, não haverá integração com o sistema atual de prazos e não serão enviados documentos para APIs externas nesta primeira etapa.
+
+## 5. Anexo técnico — metodologia ágil e cronograma (detalhado posteriormente)
+
+As cinco fases definidas acima foram formalizadas como uma metodologia ágil simplificada — um Kanban semanal, adequado ao tamanho da equipe (dois membros) — detalhada em [`docs/metodologia-agil.md`](../docs/metodologia-agil.md). O cronograma abaixo mapeia essas fases no tempo, cruzando o plano de atividades com o período oficial do estágio.
+
+![Cronograma do projeto](../docs/diagramas/cronograma.png)
+
+> Este anexo foi acrescentado após a sessão, para registrar como o plano de fases evoluiu para um cronograma datado à medida que o projeto avançou.

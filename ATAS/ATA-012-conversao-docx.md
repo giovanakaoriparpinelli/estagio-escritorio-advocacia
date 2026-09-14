@@ -29,3 +29,25 @@ Foi criado `scripts/md_to_docx.py`, que:
 ## Próximo passo
 
 Testar o DOCX gerado com uma minuta fictícia, revisar a fidelidade do timbre e depois implementar o fluxo de aprovação e PDF.
+
+## Anexo técnico — lógica de programação (detalhado posteriormente)
+
+Trecho de `scripts/md_to_docx.py` com a função central da conversão, explicada em detalhe em [`docs/logica-de-programacao.md`](../docs/logica-de-programacao.md):
+
+```python
+def convert(source: Path, template: Path, destination: Path) -> None:
+    document = Document(template)
+    document.add_page_break()
+    for line in source.read_text(encoding="utf-8-sig").splitlines():
+        add_markdown_line(document, line)
+    for paragraph in document.paragraphs:
+        for run in paragraph.runs:
+            if not run.font.name:
+                run.font.name = "Arial"
+            if not run.font.size:
+                run.font.size = Pt(11)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    document.save(destination)
+```
+
+A função abre o `modelo timbrado.docx` como base — preservando cabeçalho e logotipo automaticamente — insere uma quebra de página e percorre o Markdown linha por linha, delegando a `add_markdown_line()` o reconhecimento de títulos (`# `), seções (`## `), negrito (`**texto**`) e separadores (`---`), convertendo cada um no estilo equivalente do Word via `python-docx`.

@@ -65,3 +65,13 @@ O sistema tratará dados pessoais e informações processuais. O contratante con
 ## 10. Próxima reunião
 
 Fica pendente o agendamento após o envio do modelo DOCX timbrado e das respostas às perguntas acima.
+
+## 11. Anexo técnico — modelo de dados e atores (detalhado posteriormente)
+
+As entidades citadas no item 4 (cliente, processo, prazos) e os perfis do item 3 (advogados) evoluíram, ao longo do estágio, para o modelo de dados e o mapeamento de atores abaixo, documentados em detalhe em [`docs/modelo-de-dados.md`](../docs/modelo-de-dados.md) e [`docs/atores-e-usuarios.md`](../docs/atores-e-usuarios.md).
+
+![Diagrama de entidades e relacionamentos](../docs/diagramas/modelo-de-dados.png)
+
+![Diagrama de atores e fluxo de aprovação](../docs/diagramas/atores-e-usuarios.png)
+
+> Este anexo foi acrescentado após a reunião, para consolidar em um único lugar o raciocínio técnico que partiu das respostas registradas aqui. O perfil "advogado" do diagrama de atores cobre ambos os usuários iniciais listados no item 3.

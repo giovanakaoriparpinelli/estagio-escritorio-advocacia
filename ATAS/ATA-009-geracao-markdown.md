@@ -32,3 +32,26 @@ Abrir `prototype/index.html`, preencher o formulário com dados fictícios, clic
 ## Próximo passo
 
 Implementar a conversão do Markdown para DOCX usando o modelo timbrado, após confirmar as ferramentas disponíveis no ambiente local.
+
+## Anexo técnico — lógica de programação (detalhado posteriormente)
+
+Trecho de `prototype/index.html` responsável pela geração descrita acima, com a explicação completa em [`docs/logica-de-programacao.md`](../docs/logica-de-programacao.md):
+
+```js
+function values(){
+  const d=new FormData(form);
+  return {
+    cliente:String(d.get('cliente')||'').trim(),
+    processo:String(d.get('processo')||'').trim(),
+    finalidade:String(d.get('finalidade')||'').trim(),
+    fatos:String(d.get('fatos')||'').trim(),
+    pedido:String(d.get('pedido')||'').trim()
+  };
+}
+function makeMarkdown(v){
+  return `# Manifestação simples\n\n**Cliente/parte representada:** ${v.cliente}  \n**Processo:** ${v.processo}\n\n## Finalidade\n\n${v.finalidade}\n\n## Fatos e informações\n\n${v.fatos}\n\n## Pedido ou providência\n\n${v.pedido}\n`;
+}
+function valid(v){ return Object.values(v).every(Boolean); }
+```
+
+`values()` lê o formulário com `FormData` e devolve um objeto simples; `valid()` confirma que nenhum campo obrigatório ficou vazio antes de permitir o download; `makeMarkdown()` monta o texto final usando *template literals* do JavaScript, no formato Markdown descrito no item "Funcionamento" acima.

@@ -1,1 +1,30 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 009 — Geração Markdown</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}li{margin-bottom:5px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}</style></head><body><h1>ATA 009 — Geração real do Markdown</h1><div class="meta"><strong>Data:</strong> 03/08/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Referência:</strong> ATA 008</div><h2>Entrega</h2><p>O protótipo passou a gerar uma minuta Markdown real a partir do formulário de manifestação simples, com download local do arquivo.</p><h2>Funcionamento</h2><ul><li>Valida campos obrigatórios.</li><li>Compõe Markdown com cliente, processo, finalidade, fatos e pedido.</li><li>Inclui data/hora.</li><li>Indica revisão obrigatória do advogado.</li></ul><h2>Limitações</h2><p>Ainda não há banco, login real, salvamento permanente, conversão DOCX/PDF ou IA. Usar apenas dados fictícios.</p><h2>Próximo passo</h2><p>Implementar conversão para DOCX usando o modelo timbrado.</p><div class="footer">Registro de acompanhamento. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos.</div></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 009 — Geração Markdown</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}li{margin-bottom:5px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}code{font-family:Consolas,monospace;background:#f1f1f1;padding:2px 4px}</style></head><body><h1>ATA 009 — Geração real do Markdown</h1><div class="meta"><strong>Data:</strong> 03/08/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Referência:</strong> ATA 008</div><h2>Entrega</h2><p>O protótipo passou a gerar uma minuta Markdown real a partir do formulário de manifestação simples, com download local do arquivo.</p><h2>Funcionamento</h2><ul><li>Valida campos obrigatórios.</li><li>Compõe Markdown com cliente, processo, finalidade, fatos e pedido.</li><li>Inclui data/hora.</li><li>Indica revisão obrigatória do advogado.</li></ul><h2>Limitações</h2><p>Ainda não há banco, login real, salvamento permanente, conversão DOCX/PDF ou IA. Usar apenas dados fictícios.</p><h2>Próximo passo</h2><p>Implementar conversão para DOCX usando o modelo timbrado.</p><h2>Anexo técnico — lógica de programação</h2><p>Trecho de <code>prototype/index.html</code> responsável pela geração descrita acima (explicação completa em <code>docs/logica-de-programacao.md</code>):</p><pre>function values(){
+  const d=new FormData(form);
+  return {
+    cliente:String(d.get('cliente')||'').trim(),
+    processo:String(d.get('processo')||'').trim(),
+    finalidade:String(d.get('finalidade')||'').trim(),
+    fatos:String(d.get('fatos')||'').trim(),
+    pedido:String(d.get('pedido')||'').trim()
+  };
+}
+function makeMarkdown(v){
+  return `# Manifestação simples
+
+**Cliente/parte representada:** ${v.cliente}
+**Processo:** ${v.processo}
+
+## Finalidade
+
+${v.finalidade}
+
+## Fatos e informações
+
+${v.fatos}
+
+## Pedido ou providência
+
+${v.pedido}
+`;
+}
+function valid(v){ return Object.values(v).every(Boolean); }</pre><p>"values()" lê o formulário com FormData; "valid()" confirma que nenhum campo obrigatório ficou vazio; "makeMarkdown()" monta o texto final no formato Markdown descrito acima.</p><div class="footer">Registro de acompanhamento. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos.</div></body></html>
