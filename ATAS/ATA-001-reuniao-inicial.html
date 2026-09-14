@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Ata 001 — Reunião inicial</title>
+<style>
+@page { size: A4; margin: 22mm 18mm; }
+body { font-family: Arial, sans-serif; color: #202124; font-size: 11pt; line-height: 1.45; }
+h1 { color: #17365d; font-size: 20pt; border-bottom: 2px solid #17365d; padding-bottom: 8px; }
+h2 { color: #17365d; font-size: 14pt; margin-top: 20px; }
+.meta { background: #eef3f8; border-left: 4px solid #17365d; padding: 10px 14px; }
+li { margin-bottom: 5px; }
+code { font-family: Consolas, monospace; background: #f1f1f1; padding: 2px 4px; }
+.footer { margin-top: 28px; font-size: 9pt; color: #666; border-top: 1px solid #ccc; padding-top: 8px; }
+</style>
+</head>
+<body>
+<h1>ATA 001 — Reunião inicial e definição do primeiro incremento</h1>
+<div class="meta"><strong>Data:</strong> 14/09/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Status:</strong> Em aberto, aguardando validações e respostas complementares</div>
+<h2>1. Objetivo informado pelo contratante</h2>
+<p>Desenvolver uma automação assistida por advogado para auxiliar na criação de petições simples relacionadas ao cumprimento de prazos processuais. A automação deverá apoiar o trabalho jurídico, mas o conteúdo deverá ser revisado e aprovado por advogado antes de qualquer uso ou protocolo.</p>
+<h2>2. Primeira entrega definida</h2>
+<p>A primeira entrega será o layout de um novo site, utilizando como referência as cores do modelo DOCX timbrado do escritório. O arquivo do modelo ainda deverá ser disponibilizado para extração das cores e demais elementos visuais.</p>
+<h2>3. Usuários iniciais</h2>
+<ul><li>Mauro Junior Parpinelli — OAB/PR 84.908</li><li>Patricia Karin Gasparotto — OAB/PR 57.659</li></ul>
+<p>O acesso inicial será restrito aos dois advogados.</p>
+<h2>4. Dados e ambiente</h2>
+<ul><li>Parte representada pelo advogado (cliente).</li><li>Número do processo.</li><li>Dados necessários ao cumprimento do prazo e à elaboração da petição.</li><li>Hospedagem local na raiz <code>C:\inetpub\wwwroot</code>.</li></ul>
+<p>O controle atual de prazos permanece em sistema separado desenvolvido pelo contratante. A integração será especificada posteriormente.</p>
+<h2>5. Estágio</h2>
+<p>O contratante acredita que o estágio seja obrigatório, mas essa informação deverá ser confirmada com a UTFPR. Foi informada disponibilidade de 6 horas diárias; ainda devem ser confirmados dias, duração, início e condições formais.</p>
+<h2>6. Perguntas para continuidade</h2>
+<ol><li>Qual modelo DOCX timbrado servirá de referência visual?</li><li>Quais tipos de petições simples serão priorizados?</li><li>Quais campos e documentos são consultados em cada petição?</li><li>O sistema deverá salvar versões e histórico?</li><li>Qual será o fluxo obrigatório de revisão e aprovação?</li><li>Como o sistema de prazos poderá fornecer dados?</li><li>O servidor terá banco, HTTPS, backup e acesso restrito à rede?</li><li>Quais tecnologias já existem e quais são preferidas?</li><li>Quais são as condições formais do estágio?</li><li>Qual será o critério de aceite do layout?</li></ol>
+<h2>7. Encaminhamentos</h2>
+<ul><li>Contratante: fornecer o DOCX timbrado e responder às perguntas.</li><li>Estagiário: preparar arquitetura visual e levantamento de telas.</li><li>Ambos: validar o MVP antes das automações com IA.</li><li>Contratante: confirmar as regras do estágio com a UTFPR.</li></ul>
+<h2>8. Segurança e responsabilidade</h2>
+<p>O sistema tratará dados pessoais e informações processuais. O contratante conduzirá a análise jurídica de LGPD. No desenvolvimento, serão usados dados fictícios ou anonimizados; textos produzidos por IA serão rascunhos sujeitos à revisão do advogado.</p>
+<div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div>
+</body>
+</html>
