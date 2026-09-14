@@ -12,6 +12,10 @@ Repositório para organizar meu estágio obrigatório, em um escritório de advo
 ## Estrutura
 
 - [`docs/dados-do-estagio.md`](docs/dados-do-estagio.md): modalidade, carga horária, período, supervisor e professora orientadora confirmados.
+- [`docs/modelo-de-dados.md`](docs/modelo-de-dados.md): entidades e relacionamentos propostos para a plataforma (diagrama ER).
+- [`docs/atores-e-usuarios.md`](docs/atores-e-usuarios.md): perfis de usuário (advogado, estagiária, cliente) e o que cada um pode acessar.
+- [`docs/metodologia-agil.md`](docs/metodologia-agil.md): metodologia ágil simplificada adotada e cronograma do projeto.
+- [`docs/logica-de-programacao.md`](docs/logica-de-programacao.md): explicação, com trechos de código, de como o protótipo gera as minutas em DOCX.
 - [`docs/`](docs/): documentação viva do projeto (regras, plano de atividades, requisitos, checklist de formalização e demais registros técnicos).
 - [`ATAS/`](ATAS/): atas numeradas de cada sessão com decisão, entrega ou pendência (em `.md`, `.html` e `.pdf`).
 - [`prototype/`](prototype/): protótipo web navegável (HTML/CSS) do sistema.
