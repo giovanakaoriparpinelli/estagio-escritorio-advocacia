@@ -25,6 +25,8 @@ sequenceDiagram
     F-->>U: dispara o download do DOCX
 ```
 
+![Diagrama de sequência da geração de DOCX](diagramas/sequencia-geracao-docx.png)
+
 ## 1. Coletar e validar os dados no navegador
 
 Trecho de `prototype/index.html`:

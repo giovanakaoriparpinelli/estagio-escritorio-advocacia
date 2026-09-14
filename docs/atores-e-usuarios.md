@@ -27,6 +27,8 @@ flowchart LR
     CLI -. "consulta (etapa futura)" .-> DOC
 ```
 
+![Diagrama de atores e fluxo de aprovação](diagramas/atores-e-usuarios.png)
+
 ## Observações
 
 - No protótipo atual (`prototype/index.html`), não há login nem separação de perfis — a tela simula a visão do advogado (nome fixo "Mauro Parpinelli" na barra lateral). Autenticação e controle de perfil por usuário ainda são pendências de implementação.

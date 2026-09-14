@@ -45,6 +45,8 @@ gantt
     Documentacao e relatorio final             :plan4, 2026-11-23, 2026-12-03
 ```
 
+![Cronograma do projeto](diagramas/cronograma.png)
+
 > As datas de "Estágio formal" a partir de 21/09/2026 são **planejadas**, não executadas — serão ajustadas a cada ciclo semanal conforme o progresso real, e cada ajuste relevante deve ser registrado em ata.
 
 ## Critérios de "pronto" (Definition of Done)

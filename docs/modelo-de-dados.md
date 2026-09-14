@@ -72,6 +72,8 @@ erDiagram
     }
 ```
 
+![Diagrama de entidades e relacionamentos](diagramas/modelo-de-dados.png)
+
 ## Leitura do modelo
 
 - Um **Cliente** pode ter vários **Processos**; cada Processo pertence a um único Cliente.
