@@ -1,0 +1,47 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 019 — API integrada, interface com login e testes de ponta a ponta</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 019 — API integrada, interface com login e testes de ponta a ponta</h1><div class="meta"><strong>Data:</strong> 16/10/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Participantes:</strong> Contratante/advogado; estagiário de Engenharia de Software (IA assistida)<br><strong>Referência:</strong> ATA 015 e ATA 018<br><strong>Carga horária da semana (13/10 a 16/10, com feriado em 12/10):</strong> 24 horas</div><h2>Contexto</h2>
+<p>As regras de negócio (ATAs 016 a 018) existiam como código de serviço, sem acesso pela interface. Esta semana conecta tudo: o serviço HTTP local passa a expor uma API autenticada e o protótipo passa a usá-la.</p>
+<h2>Decisões</h2>
+<ol>
+<li><strong>Rotas JSON</strong> para login, logout, painel, minutas (criar, editar, enviar, aprovar, devolver, nova versão, DOCX) e auditoria. O endpoint original de DOCX (ATA 013) foi mantido, agora exigindo login.</li>
+<li><strong>O próprio serviço entrega o protótipo</strong> em <code>http://127.0.0.1:8765/</code>. Assim a interface e a API ficam na mesma origem, sem depender de CORS aberto. Quando o HTML é aberto direto do disco, ainda funciona, e o CORS aceita apenas essa origem e o endereço local.</li>
+<li><strong>Cabeçalhos de segurança:</strong> <code>X-Content-Type-Options</code>, <code>Cache-Control: no-store</code> e política de conteúdo (CSP) restrita às próprias origens.</li>
+<li><strong>Limites de entrada:</strong> corpo da requisição de até 64 KB, JSON obrigatório, bloqueio de caminhos fora de <code>prototype/</code> (path traversal).</li>
+<li><strong>Erros sem vazamento:</strong> falhas inesperadas devolvem mensagem genérica; detalhes (que poderiam conter dados da minuta) não vão para a resposta nem para o log.</li>
+<li><strong>Interface:</strong> tela de login, painel com contadores reais, formulário que salva rascunho, lista de minutas com ações conforme o perfil, e visão de auditoria só para o advogado. Todo texto vindo da API é inserido como texto (nunca como HTML), prevenindo injeção de scripts (XSS).</li>
+</ol>
+<h2>Entrega realizada</h2>
+<ul>
+<li><code>services/document_service.py</code> reescrito (roteador, tratamento de erros, arquivos estáticos).</li>
+<li><code>prototype/index.html</code>, novo <code>prototype/app.js</code> e ajustes em <code>prototype/styles.css</code>.</li>
+<li><code>tests/test_api.py</code>: servidor real em porta livre, banco temporário e dados fictícios.</li>
+</ul>
+<h2>Validação técnica</h2>
+<p>Total acumulado: 31 testes aprovados. Os 6 novos verificam: rotas protegidas respondem 401 sem login; login inválido; fluxo completo (criar → aprovar fora de ordem 409 → enviar → estagiária aprovando 403 → advogado aprovando → edição bloqueada 409 → DOCX válido); entradas inválidas (400/404); entrega do protótipo e bloqueio de <code>..%2f</code>; painel e cadastros.</p>
+<p>Também foi verificada visualmente a tela de login do protótipo no navegador.</p>
+<p>Como executar:</p>
+<pre><code class="language-powershell">python scripts\popular_dados_ficticios.py --db data\dev.db   # cria usuários fictícios (senhas exibidas uma vez)
+$env:ESTAGIO_DB = &quot;data\dev.db&quot;
+python services\document_service.py                          # abrir http://127.0.0.1:8765/
+</code></pre>
+<h2>Anexo técnico — trecho comentado</h2>
+<pre><code class="language-python">for (m, regex), funcao in ROTAS.items():             # tabela de rotas: (método, padrão) -&gt; função
+    achou = regex.match(caminho)
+    if m == metodo and achou:
+        conexao = conectar(self.db_path)             # uma conexão por requisição
+        try:
+            raise funcao(self, conexao, *achou.groups())   # a função devolve uma Resposta
+        finally:
+            conexao.close()
+</code></pre>
+<p>Cada exceção de negócio é traduzida em um código HTTP: autenticação 401, permissão 403, não encontrado 404, estado inválido 409, validação 400.</p>
+<h2>Limitações e riscos</h2>
+<ul>
+<li>Sem HTTPS (acesso restrito ao próprio computador). Antes de qualquer uso em rede, será necessário proxy com TLS.</li>
+<li>O token fica em <code>sessionStorage</code> do navegador; é apagado ao fechar a aba.</li>
+</ul>
+<h2>Pendências para o contratante</h2>
+<ul>
+<li>Testar o fluxo no navegador com os usuários fictícios e informar ajustes de texto e layout.</li>
+</ul>
+<h2>Próximo passo</h2>
+<p>Cadastros de clientes, processos e prazos, com painel de prazos próximos.</p><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

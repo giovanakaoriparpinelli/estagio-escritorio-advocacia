@@ -1,6 +1,6 @@
 # ATA 008 — Recebimento da referência do logotipo
 
-**Data:** 27/07/2026  
+**Data:** 24/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 007
 

@@ -9,3 +9,7 @@ desktop.ini
 
 # Editor
 .vscode/
+
+# Dados locais (bancos SQLite e backups)
+data/
+*.db

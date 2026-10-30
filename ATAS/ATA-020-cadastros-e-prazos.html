@@ -1,0 +1,41 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 020 — Cadastros de clientes, processos e prazos</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 020 — Cadastros de clientes, processos e prazos</h1><div class="meta"><strong>Data:</strong> 23/10/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Participantes:</strong> Contratante/advogado; estagiário de Engenharia de Software (IA assistida)<br><strong>Referência:</strong> ATA 019 e `docs/modelo-de-dados.md`<br><strong>Carga horária da semana (19/10 a 23/10):</strong> 30 horas</div><h2>Contexto</h2>
+<p>Até aqui, clientes e processos só nasciam como efeito colateral da criação de uma minuta. Para o sistema servir ao controle do escritório, eles precisam ser cadastrados de forma explícita, e os prazos devem aparecer com destaque. Conforme a ATA 001, a <strong>integração com o sistema de prazos já existente continua fora do escopo</strong>: os prazos aqui são lançados manualmente, apenas para apoiar as minutas.</p>
+<h2>Decisões</h2>
+<ol>
+<li><strong>Número de processo no padrão CNJ</strong> (<code>0000000-00.0000.0.00.0000</code>), validado no cadastro; duplicidade recusada.</li>
+<li><strong>CPF/CNPJ</strong> opcional, aceito apenas em formato plausível. Não há validação de dígitos verificadores nesta etapa.</li>
+<li><strong>Prazos</strong> com data ISO validada (31/02 é recusado), descrição e vínculo obrigatório com um processo; marcação de "cumprido".</li>
+<li><strong>Painel de prazos:</strong> lista dos não cumpridos nos próximos 15 dias, <strong>incluindo os já vencidos</strong>, ordenados do mais urgente ao menos; vencidos aparecem em vermelho.</li>
+<li>A auditoria registra criação de cliente, processo e prazo e o cumprimento do prazo, sem gravar nome ou descrição.</li>
+<li>O sistema <strong>não calcula prazos processuais</strong> nem conta dias úteis: a data é informada pelo advogado. Essa decisão evita erro jurídico atribuído ao software.</li>
+</ol>
+<h2>Entrega realizada</h2>
+<ul>
+<li><code>services/cadastros.py</code> e rotas <code>/api/clientes</code>, <code>/api/processos</code>, <code>/api/prazos</code>, <code>/api/prazos/{id}/cumprido</code> e <code>/api/painel</code>.</li>
+<li>Painel "Próximos 15 dias" na interface.</li>
+<li><code>tests/test_cadastros.py</code>.</li>
+</ul>
+<h2>Validação técnica</h2>
+<p>Total acumulado: 36 testes aprovados. Os 5 novos cobrem: número fora do padrão, cliente inexistente, processo duplicado, CPF/CNPJ inválido, ordenação e inclusão de prazos vencidos, prazo cumprido saindo da lista, data inválida e acesso negado ao perfil <code>cliente</code>.</p>
+<h2>Anexo técnico — trecho comentado</h2>
+<pre><code class="language-python">def prazos_proximos(conexao, usuario, dias=15, hoje=None):
+    limite = (hoje + timedelta(days=dias)).isoformat()
+    # não cumpridos até o limite; vencidos entram porque a data é menor que o limite
+    linhas = conexao.execute(&quot;... WHERE z.cumprido = 0 AND z.data &lt;= ? ORDER BY z.data, z.id&quot;, (limite,))
+    for linha in linhas:
+        item[&quot;dias_restantes&quot;] = (date.fromisoformat(item[&quot;data&quot;]) - hoje).days
+        item[&quot;vencido&quot;] = item[&quot;dias_restantes&quot;] &lt; 0
+</code></pre>
+<p>O parâmetro <code>hoje</code> existe para tornar o teste determinístico (data fixa em vez do relógio do computador).</p>
+<h2>Limitações e riscos</h2>
+<ul>
+<li>Sem edição ou exclusão de clientes e processos nesta etapa (evita perda acidental de dados).</li>
+<li>Risco jurídico: prazo lançado errado gera falsa segurança. Orientação: o painel é apoio, não substitui a agenda oficial do escritório.</li>
+</ul>
+<h2>Pendências para o contratante</h2>
+<ul>
+<li>Informar quais outros dados do processo são essenciais (por exemplo, vara, comarca, partes contrárias).</li>
+<li>Decidir se, em etapa futura, os prazos serão importados do sistema atual.</li>
+</ul>
+<h2>Próximo passo</h2>
+<p>Rotina de backup do banco e revisão de segurança do conjunto.</p><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

@@ -1,1 +1,32 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 002 — Respostas e requisitos</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}li{margin-bottom:5px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}</style></head><body><h1>ATA 002 — Respostas e requisitos da automação de minutas</h1><div class="meta"><strong>Data:</strong> 15/06/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Referência:</strong> ATA 001</div><h2>Respostas registradas</h2><ul><li>Modelo visual: <strong>modelo timbrado.docx</strong>.</li><li>Primeiro caso: criação de minutas para cumprimento de prazo.</li><li>Identificação por nome do cliente e/ou número do processo.</li><li>O sistema salvará versões e arquivos produzidos.</li><li>Fluxo: Markdown → DOCX com timbre → revisão → aprovação → PDF.</li><li>Login e área restrita aos dois advogados.</li><li>Ambiente local em <code>C:\inetpub\wwwroot</code>.</li><li>PHP, SQL e Python existentes serão verificados.</li><li>Estágio sem remuneração, conforme informado.</li><li>Aceite mediante aprovação do contratante.</li><li>Na primeira versão, os dados serão digitados manualmente.</li></ul><h2>Decisões técnicas</h2><ol><li>Markdown será fonte editável e rastreável.</li><li>DOCX e PDF serão preservados.</li><li>A aprovação registrará usuário, data e hora.</li><li>O layout usará dados fictícios.</li><li>A integração automática com o sistema de prazos ficará para etapa posterior.</li></ol><h2>Próximos passos</h2><ul><li>Preparar proposta visual baseada no modelo timbrado.</li><li>Definir login, painel, nova minuta, revisão e histórico.</li><li>Escolher o primeiro tipo concreto de minuta.</li><li>Confirmar tecnologias e banco disponíveis.</li><li>Confirmar regras do estágio com a UTFPR.</li></ul><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 002 — Respostas e requisitos da automação de minutas</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 002 — Respostas e requisitos da automação de minutas</h1><div class="meta"><strong>Data:</strong> 05/08/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Referência:</strong> ATA 001</div><h2>Respostas registradas</h2>
+<ul>
+<li>O modelo visual está no arquivo <code>modelo timbrado.docx</code>, localizado na raiz do projeto.</li>
+<li>O primeiro caso de uso será a criação de minutas para cumprimento de prazo.</li>
+<li>A busca/identificação poderá usar o nome do cliente e/ou o número do processo.</li>
+<li>O sistema deverá salvar as versões e os arquivos produzidos.</li>
+<li>O fluxo aprovado será: Markdown → DOCX com timbre → leitura e revisão do advogado → aprovação → PDF para protocolo.</li>
+<li>O sistema terá login e área restrita.</li>
+<li>O ambiente é local, com raiz em <code>C:\\inetpub\\wwwroot</code>.</li>
+<li>Já existem recursos em PHP, SQL e Python; a existência e adequação serão verificadas conforme a evolução.</li>
+<li>O estágio será sem remuneração, conforme informado pelo contratante.</li>
+<li>O critério de aceite da primeira entrega será a aprovação do contratante.</li>
+<li>Na primeira versão, os dados serão digitados manualmente pelo advogado.</li>
+</ul>
+<h2>Decisões técnicas preliminares</h2>
+<ol>
+<li>O Markdown será mantido como fonte editável e rastreável da minuta.</li>
+<li>DOCX e PDF serão artefatos derivados e também serão preservados.</li>
+<li>A aprovação será uma etapa explícita, identificando usuário e momento.</li>
+<li>O layout será desenvolvido primeiro com dados fictícios.</li>
+<li>A integração com o sistema separado de prazos não entra no primeiro layout.</li>
+</ol>
+<h2>Integração com o sistema existente</h2>
+<p>Foi decidido que, na primeira versão, os dados serão digitados manualmente pelo advogado. Importação de arquivo, leitura do banco ou API ficam para uma etapa posterior, caso tragam benefício e sejam tecnicamente autorizadas.</p>
+<h2>Próximos passos</h2>
+<ul>
+<li>Inspecionar visualmente o modelo timbrado e preparar uma tela inicial coerente com suas cores.</li>
+<li>Definir as telas do MVP: login, painel, nova minuta, revisão de arquivos e histórico.</li>
+<li>Escolher um primeiro tipo concreto de minuta para protótipo.</li>
+<li>Confirmar a tecnologia principal do site e o banco disponível no servidor local.</li>
+<li>Confirmar formalmente com a UTFPR se o estágio é obrigatório e obter a documentação correspondente.</li>
+</ul><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

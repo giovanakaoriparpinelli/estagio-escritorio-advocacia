@@ -1,6 +1,6 @@
 # ATA 002 — Respostas e requisitos da automação de minutas
 
-**Data:** 15/06/2026  
+**Data:** 05/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 001
 

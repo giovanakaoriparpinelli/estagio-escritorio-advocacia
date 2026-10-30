@@ -1,0 +1,39 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 018 — Fluxo de revisão e aprovação das minutas</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 018 — Fluxo de revisão e aprovação das minutas</h1><div class="meta"><strong>Data:</strong> 09/10/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Participantes:</strong> Contratante/advogado; estagiário de Engenharia de Software (IA assistida)<br><strong>Referência:</strong> ATA 017 e ATA 002 (fluxo aprovado)<br><strong>Carga horária da semana (05/10 a 09/10):</strong> 30 horas</div><h2>Contexto</h2>
+<p>O fluxo definido na ATA 002 prevê "leitura e revisão do advogado → aprovação". As regras 8 do <code>AGENTS.md</code> e da ATA 001 reforçam que todo texto é rascunho até a revisão do advogado. Esta semana transforma essa regra em comportamento do sistema.</p>
+<h2>Decisões</h2>
+<ol>
+<li><strong>Estados da minuta:</strong> <code>rascunho</code> → <code>em_revisao</code> → <code>aprovada</code> ou <code>devolvida</code>.</li>
+<li><strong>Somente o perfil <code>advogado</code> aprova ou devolve.</strong> A devolução exige motivo escrito.</li>
+<li><strong>Aprovada é imutável</strong>, na regra de negócio e também no banco (gatilho <code>documento_aprovado_imutavel</code>), de modo que nem uma alteração direta por SQL adultera o texto aprovado.</li>
+<li><strong>Correções geram nova versão:</strong> a partir de uma minuta devolvida ou aprovada cria-se um novo rascunho (versão 2, 3…), ligado ao original por <code>origem_id</code>. O histórico nunca é sobrescrito.</li>
+<li><strong>Exportação marcada:</strong> todo DOCX/Markdown de minuta não aprovada sai com o aviso "RASCUNHO — não aprovado pelo advogado. Revisão obrigatória."; a minuta aprovada traz o nome do revisor e a data da aprovação (UTC).</li>
+<li>Cada transição de estado é gravada na auditoria (sem o texto da minuta).</li>
+<li><strong>Decisão adiada:</strong> a conversão do DOCX aprovado em PDF depende de uma ferramenta de conversão (Word ou LibreOffice) ainda não confirmada no servidor do escritório; fica para a próxima rodada de requisitos.</li>
+</ol>
+<h2>Entrega realizada</h2>
+<ul>
+<li>Esquema v3 (<code>status</code>, <code>revisado_por</code>, <code>revisado_em</code>, <code>motivo_devolucao</code> e o gatilho de imutabilidade).</li>
+<li>Funções <code>enviar_para_revisao</code>, <code>aprovar</code>, <code>devolver</code>, <code>nova_versao</code> e <code>markdown_para_exportacao</code> em <code>services/minutas.py</code>.</li>
+<li>Testes de fluxo completo, permissões, devolução, imutabilidade e exportação.</li>
+</ul>
+<h2>Validação técnica</h2>
+<p>Total acumulado: 25 testes aprovados. Casos cobertos: aprovar sem passar pela revisão (recusado), estagiária tentando aprovar (recusado), devolução sem motivo (recusada), edição de minuta aprovada (recusada), <code>UPDATE</code> direto no banco (barrado pelo gatilho), versão 2 criada a partir da devolvida, e auditoria que não contém o texto das minutas.</p>
+<h2>Anexo técnico — trecho comentado</h2>
+<pre><code class="language-python">def aprovar(conexao, usuario, minuta_id):
+    exigir_perfil(usuario, &quot;advogado&quot;)                 # 1) quem pode
+    return _mudar_status(conexao, usuario, minuta_id,
+                         (&quot;em_revisao&quot;,), &quot;aprovada&quot;,   # 2) de qual estado para qual
+                         &quot;minuta_aprovada&quot;, revisao=True)   # 3) registra revisor, data e auditoria
+</code></pre>
+<h2>Limitações e riscos</h2>
+<ul>
+<li>Um advogado pode aprovar uma minuta criada por ele mesmo; se o escritório quiser dupla conferência, a regra pode ser endurecida.</li>
+<li>A aprovação é do texto como armazenado; o sistema não verifica o conteúdo jurídico (responsabilidade exclusiva do advogado).</li>
+</ul>
+<h2>Pendências para o contratante</h2>
+<ul>
+<li>Validar os rótulos dos estados e o aviso de rascunho que sai nos documentos.</li>
+<li>Informar qual ferramenta de conversão para PDF está disponível no servidor.</li>
+</ul>
+<h2>Próximo passo</h2>
+<p>Expor o fluxo por uma API HTTP, integrar a interface do protótipo (login, lista e ações) e criar testes de ponta a ponta.</p><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

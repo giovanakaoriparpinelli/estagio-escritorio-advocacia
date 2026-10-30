@@ -1,0 +1,123 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 021 — Backup do banco, revisão de segurança e consolidação</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 021 — Backup do banco, revisão de segurança e consolidação</h1><div class="meta"><strong>Data:</strong> 29/10/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Participantes:</strong> Contratante/advogado; estagiário de Engenharia de Software (IA assistida)<br><strong>Referência:</strong> ATA 020<br><strong>Carga horária da semana (26/10 a 29/10, até a data desta ata):</strong> 24 horas</div><h2>Contexto</h2>
+<p>Com o banco concentrando minutas, clientes e prazos, a perda do arquivo seria o principal risco operacional (ATA 016). A semana também reservou tempo para revisar o código de forma geral antes da etapa de homologação com o contratante.</p>
+<h2>Decisões</h2>
+<ol>
+<li><strong>Backup consistente</strong> com a API de backup online do SQLite (seguro mesmo com o serviço em uso), seguido de verificação <code>PRAGMA integrity_check</code>. Se a cópia estiver corrompida, ela é descartada e o erro é informado.</li>
+<li><strong>Rotação:</strong> mantêm-se as 14 cópias mais recentes.</li>
+<li>Backups e banco ficam em <code>data/</code>, fora do Git. <strong>Cópia para outro disco ou nuvem depende de decisão do contratante</strong>, por envolver dados sujeitos à LGPD.</li>
+<li><strong>Revisão de segurança</strong> do código, com os itens abaixo conferidos e cobertos por teste quando possível.</li>
+</ol>
+<h2>Revisão de segurança — resultado</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Senhas com hash e sal; nenhuma senha no código</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Token de sessão guardado só como hash</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Consultas SQL parametrizadas (sem concatenação)</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Validação de entrada no servidor, com limites de tamanho</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Permissões por perfil verificadas no servidor (não só na tela)</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Logs e auditoria sem dados pessoais ou texto de minuta</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Texto da API inserido na tela como texto (anti-XSS)</td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>Acesso restrito a <code>127.0.0.1</code></td>
+<td>Atendido</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td><strong>Pendente</strong> (obrigatório antes de uso em rede)</td>
+</tr>
+<tr>
+<td>Backup fora do computador</td>
+<td><strong>Pendente</strong> (decisão do contratante)</td>
+</tr>
+<tr>
+<td>Política de retenção e exclusão de dados (LGPD)</td>
+<td><strong>Pendente</strong> (análise jurídica do contratante)</td>
+</tr>
+</tbody>
+</table>
+<h2>Entrega realizada</h2>
+<ul>
+<li><code>scripts/backup_banco.py</code>, <code>tests/test_backup.py</code>.</li>
+<li>Correção durante a revisão: as conexões do backup não eram fechadas explicitamente, o que travava o arquivo no Windows; passaram a usar <code>contextlib.closing</code>.</li>
+<li>Atualização de <code>README.md</code> e dos documentos técnicos (modelo de dados, atores, cronograma, registro de horas e diário).</li>
+</ul>
+<h2>Validação técnica</h2>
+<p>Total acumulado: <strong>38 testes automatizados aprovados</strong> (<code>python -m unittest discover -s tests -t .</code>).</p>
+<pre><code class="language-powershell">python scripts\backup_banco.py --db data\escritorio.db --destino data\backups
+</code></pre>
+<h2>Balanço das semanas 8 a 13</h2>
+<table>
+<thead>
+<tr>
+<th>Semana</th>
+<th>ATA</th>
+<th>Entrega</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>016</td>
+<td>Banco SQLite e migrações</td>
+</tr>
+<tr>
+<td>9</td>
+<td>017</td>
+<td>Autenticação, perfis e auditoria</td>
+</tr>
+<tr>
+<td>10</td>
+<td>018</td>
+<td>Revisão, aprovação e versionamento</td>
+</tr>
+<tr>
+<td>11</td>
+<td>019</td>
+<td>API integrada, login e testes ponta a ponta</td>
+</tr>
+<tr>
+<td>12</td>
+<td>020</td>
+<td>Cadastros e painel de prazos</td>
+</tr>
+<tr>
+<td>13</td>
+<td>021</td>
+<td>Backup e revisão de segurança</td>
+</tr>
+</tbody>
+</table>
+<h2>Riscos em aberto</h2>
+<ul>
+<li>Uso de dados reais continua <strong>proibido</strong> até haver HTTPS, backup externo e a análise de LGPD do contratante.</li>
+<li>Conversão para PDF ainda sem ferramenta definida (ATA 018).</li>
+</ul>
+<h2>Próximo passo</h2>
+<p>Demonstração ao contratante com dados fictícios, coleta de ajustes e elaboração do relatório parcial do estágio.</p><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

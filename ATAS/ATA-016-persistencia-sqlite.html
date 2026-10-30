@@ -1,0 +1,41 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>ATA 016 — Persistência em banco de dados SQLite</title><style>@page{size:A4;margin:22mm 18mm}body{font-family:Arial,sans-serif;color:#202124;font-size:11pt;line-height:1.45}h1{color:#17365d;font-size:20pt;border-bottom:2px solid #17365d;padding-bottom:8px}h2{color:#17365d;font-size:14pt;margin-top:20px}h3{color:#17365d;font-size:12pt}.meta{background:#eef3f8;border-left:4px solid #17365d;padding:10px 14px}.footer{margin-top:28px;font-size:9pt;color:#666;border-top:1px solid #ccc;padding-top:8px}pre{background:#f5f5f5;border:1px solid #ddd;border-radius:4px;padding:10px;font-family:Consolas,monospace;font-size:9pt;overflow-x:auto;white-space:pre-wrap}table{border-collapse:collapse;width:100%;font-size:10pt}th,td{border:1px solid #ccd;padding:4px 8px;text-align:left}th{background:#eef3f8}img{max-width:100%;margin:8px 0}</style></head><body><h1>ATA 016 — Persistência em banco de dados SQLite</h1><div class="meta"><strong>Data:</strong> 25/09/2026<br><strong>Projeto:</strong> Plataforma local de gestão jurídica e automação assistida<br><strong>Participantes:</strong> Contratante/advogado; estagiário de Engenharia de Software (IA assistida)<br><strong>Referência:</strong> ATA 015 e `docs/modelo-de-dados.md`<br><strong>Carga horária da semana (21/09 a 25/09):</strong> 30 horas</div><h2>Contexto</h2>
+<p>Até a ATA 015, as minutas existiam apenas durante a sessão: o formulário gerava Markdown/DOCX e nada era guardado. O requisito definido na ATA 002 ("o sistema deverá salvar as versões e os arquivos produzidos") exige persistência. Esta semana implementa a primeira camada de banco de dados a partir do modelo de entidades proposto.</p>
+<h2>Decisões</h2>
+<ol>
+<li><strong>SQLite</strong> como banco inicial: arquivo único, sem serviço a instalar, adequado ao ambiente local e ao volume previsto (cerca de 60 processos). A troca por outro SGBD continua possível porque o acesso fica concentrado em <code>services/</code>.</li>
+<li><strong>Migrações versionadas</strong> (<code>PRAGMA user_version</code>): cada alteração de esquema vira uma nova versão, aplicada em transação, sem editar as anteriores.</li>
+<li><strong>Valores monetários em centavos inteiros</strong> (<code>valor_centavos</code>) em vez de decimal, para evitar erros de arredondamento. Ajuste em relação ao modelo conceitual, registrado em <code>docs/modelo-de-dados.md</code>.</li>
+<li>A minuta é armazenada como <code>documento</code> (tipo <code>manifestacao_simples</code>), vinculada a <code>processo</code> e <code>cliente</code>; os campos do formulário ficam em JSON e o Markdown gerado é guardado junto, como fonte rastreável.</li>
+<li>O banco fica em <code>data/</code> e <strong>não é versionado no Git</strong> (<code>.gitignore</code>).</li>
+</ol>
+<h2>Entrega realizada</h2>
+<ul>
+<li><code>services/database.py</code>: esquema v1 com as sete entidades (usuário, cliente, processo, prazo, tarefa, documento e financeiro), chaves estrangeiras ativas, restrições <code>CHECK</code> e índices.</li>
+<li><code>services/minutas.py</code>: validação dos cinco campos (obrigatórios, com limite de tamanho), geração do Markdown e gravação da minuta (cria cliente e processo quando ainda não existem).</li>
+<li><code>tests/test_database.py</code> e os primeiros testes de <code>tests/test_minutas.py</code>.</li>
+</ul>
+<h2>Validação técnica</h2>
+<p>Foram escritos 9 testes automatizados, todos aprovados: migração idempotente, existência das entidades, rejeição de processo sem cliente, perfil inválido e número de processo duplicado, criação de minuta com reaproveitamento de cliente/processo, campos inválidos e uma tentativa de injeção de SQL tratada como texto comum.</p>
+<pre><code class="language-powershell">python -m unittest discover -s tests -t .
+</code></pre>
+<h2>Anexo técnico — trecho comentado</h2>
+<pre><code class="language-python">def migrar(conexao):
+    atual = conexao.execute(&quot;PRAGMA user_version&quot;).fetchone()[0]   # versão gravada no arquivo
+    for versao, script in enumerate(MIGRACOES, start=1):
+        if versao &lt;= atual:
+            continue                                                # já aplicada
+        conexao.executescript(f&quot;BEGIN;\n{script}\nPRAGMA user_version = {versao};\nCOMMIT;&quot;)
+</code></pre>
+<p>Cada versão roda dentro de uma transação: se o script falhar no meio, nada é aplicado e a versão não muda.</p>
+<h2>Limitações e riscos</h2>
+<ul>
+<li>Ainda não há login: qualquer chamada local grava no banco. Por isso só dados fictícios são usados.</li>
+<li>O número do processo é texto livre nesta etapa; a validação do padrão CNJ ficou para o módulo de cadastros.</li>
+<li>Risco: perda do arquivo do banco. Mitigação planejada: rotina de backup.</li>
+</ul>
+<h2>Pendências para o contratante</h2>
+<ul>
+<li>Validar se o modelo de entidades cobre o fluxo atual do escritório (em especial prazos e financeiro).</li>
+</ul>
+<h2>Próximo passo</h2>
+<p>Implementar autenticação, perfis de acesso e trilha de auditoria.</p><div class="footer">Documento de acompanhamento do projeto. Não substitui documentos oficiais da UTFPR nem instrumentos jurídicos do escritório.</div></body></html>

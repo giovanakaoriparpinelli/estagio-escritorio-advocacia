@@ -1,6 +1,6 @@
 # ATA 007 — Aprovação visual inicial e definição do logotipo
 
-**Data:** 20/07/2026  
+**Data:** 21/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 006
 

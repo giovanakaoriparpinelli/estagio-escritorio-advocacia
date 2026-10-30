@@ -1,6 +1,6 @@
 # ATA 006 — Primeira implementação do protótipo navegável
 
-**Data:** 13/07/2026  
+**Data:** 19/08/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 005
 

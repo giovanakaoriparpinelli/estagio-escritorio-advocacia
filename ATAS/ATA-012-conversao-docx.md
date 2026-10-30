@@ -1,6 +1,6 @@
 # ATA 012 — Primeira conversão Markdown para DOCX
 
-**Data:** 24/08/2026  
+**Data:** 02/09/2026  
 **Projeto:** Plataforma local de gestão jurídica e automação assistida  
 **Referência:** ATA 011
 
