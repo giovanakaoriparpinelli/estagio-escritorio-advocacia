@@ -1,6 +1,6 @@
 # Modelo de dados (proposto)
 
-Este documento apresenta o modelo de dados conceitual proposto para a plataforma de gestão jurídica descrita em [`AGENTS.md`](../AGENTS.md). É um artefato de **design**, não uma implementação: o protótipo atual (`prototype/`) e os serviços locais (`services/`, `scripts/`) ainda não persistem dados em banco — eles trabalham com formulário → Markdown → DOCX, sem armazenamento permanente. Este modelo orienta a próxima etapa (persistência real) e deve ser validado com o contratante antes da implementação.
+Este documento apresenta o modelo de dados conceitual proposto para a plataforma de gestão jurídica descrita em [`AGENTS.md`](../AGENTS.md). O modelo foi **implementado em SQLite** a partir da semana 8 (ver [`ATA 016`](../ATAS/ATA-016-persistencia-sqlite.md) e `services/database.py`), com migrações versionadas. Ajustes feitos na implementação: valores em centavos inteiros (`valor_centavos`); `Documento` ganhou `titulo`, `origem_id`, `status`, `campos_json`, `conteudo_md`, `revisado_por`, `revisado_em` e `motivo_devolucao` (fluxo de aprovação, [`ATA 018`](../ATAS/ATA-018-revisao-e-aprovacao.md)); e foram criadas as tabelas auxiliares `sessao` e `auditoria` ([`ATA 017`](../ATAS/ATA-017-autenticacao-e-perfis.md)). O modelo ainda deve ser validado com o contratante.
 
 ## Entidades e atributos
 

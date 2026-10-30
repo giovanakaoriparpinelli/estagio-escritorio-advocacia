@@ -17,37 +17,40 @@ Sugestão de ferramenta: como o projeto já está no GitHub, o próprio **GitHub
 
 ## Ritmo semanal
 
-- **Toda segunda-feira** (ou terça-feira, quando a segunda é feriado): checagem do que foi concluído na semana anterior, definição do foco da semana e registro em uma nova ata (ver [`ATAS/`](../ATAS/)). Esse ritmo já é a cadência real observada nas atas do projeto — uma por semana.
+- **Toda segunda-feira** (ou terça-feira, quando a segunda é feriado): definição do foco da semana. **Ao fim da semana** (normalmente na sexta-feira): demonstração ao contratante e registro em uma nova ata (ver [`ATAS/`](../ATAS/)). Esse é o ritmo observado nas atas do projeto — ao menos uma por semana.
 - **Revisão contínua**: como o advogado supervisor participa das sessões, a revisão de cada entrega acontece no mesmo dia em que é apresentada, sem esperar o fim de um ciclo maior (diferente de uma sprint review tradicional).
 - **Sem estimativas formais** (story points, velocity): dado o volume de trabalho e o tamanho da equipe, cada item do backlog é tratado como uma entrega única a ser concluída na semana.
 
 ## Cronograma (fases × tempo)
 
-O cronograma une o [plano de atividades](plano-de-atividades.md) (fases de trabalho) ao [período oficial do estágio](dados-do-estagio.md) (03/08/2026 a 03/12/2026). As atas de números 001–008 (08/06 a 27/07/2026) registram uma fase **anterior ao início formal do estágio** — tratativas, levantamento de requisitos e primeiro protótipo, parte do processo de formalização descrito em [`docs/regras-estagio.md`](regras-estagio.md) — e não contam como horas do estágio em si.
+O cronograma une o [plano de atividades](plano-de-atividades.md) (fases de trabalho) ao [período oficial do estágio](dados-do-estagio.md) (03/08/2026 a 03/12/2026). As atas 001 a 021 registram as semanas 1 a 13 do estágio (03/08 a 29/10/2026); as horas de cada semana constam em [`registro-de-horas.md`](registro-de-horas.md).
 
 ```mermaid
 gantt
     dateFormat YYYY-MM-DD
-    title Cronograma do projeto
+    title Cronograma do projeto (estágio de 03/08 a 03/12/2026)
     axisFormat %d/%m
 
-    section Pre-estagio (formalizacao)
-    Descoberta e requisitos (ATA 001-003)      :done, des1, 2026-06-08, 2026-06-26
-    Planejamento e 1a minuta (ATA 004-005)     :done, des2, 2026-06-29, 2026-07-10
-    Prototipo navegavel (ATA 006-008)          :done, des3, 2026-07-13, 2026-07-31
+    section Executado
+    Descoberta e requisitos (ATA 001-004) :done, t0, 2026-08-03, 2026-08-14
+    Protótipo navegável e identidade visual (ATA 005-008) :done, t1, 2026-08-17, 2026-08-28
+    Geração de Markdown e DOCX (ATA 009-013) :done, t2, 2026-08-26, 2026-09-04
+    Botão DOCX e documentação técnica (ATA 014-015) :done, t3, 2026-09-08, 2026-09-18
+    Banco de dados SQLite (ATA 016) :done, t4, 2026-09-21, 2026-09-25
+    Autenticação perfis e auditoria (ATA 017) :done, t5, 2026-09-28, 2026-10-02
+    Revisão e aprovação das minutas (ATA 018) :done, t6, 2026-10-05, 2026-10-09
+    API integrada login e testes (ATA 019) :done, t7, 2026-10-13, 2026-10-16
+    Cadastros e prazos (ATA 020) :done, t8, 2026-10-19, 2026-10-23
+    Backup e revisão de segurança (ATA 021) :done, t9, 2026-10-26, 2026-10-29
 
-    section Estagio formal (03/08 a 03/12/2026)
-    Geracao real de minutas (ATA 009-011)      :done, imp1, 2026-08-03, 2026-08-21
-    Conversao e geracao de DOCX (ATA 012-015)  :active, imp2, 2026-08-24, 2026-09-18
-    Modelagem de dados e persistencia          :plan1, 2026-09-21, 2026-10-16
-    Autenticacao e perfis de acesso            :plan2, 2026-10-19, 2026-11-06
-    Testes e revisao de qualidade              :plan3, 2026-11-09, 2026-11-20
-    Documentacao e relatorio final             :plan4, 2026-11-23, 2026-12-03
+    section Planejado
+    Homologação com o contratante e ajustes :t10, 2026-11-03, 2026-11-19
+    Documentação e relatório final :t11, 2026-11-23, 2026-12-03
 ```
 
 ![Cronograma do projeto](diagramas/cronograma.png)
 
-> As datas de "Estágio formal" a partir de 21/09/2026 são **planejadas**, não executadas — serão ajustadas a cada ciclo semanal conforme o progresso real, e cada ajuste relevante deve ser registrado em ata.
+> As barras de "Executado" refletem as atas 001 a 021 (semanas 1 a 13); as de "Planejado" são previsões, ajustadas a cada ciclo semanal conforme o progresso real e registradas em ata.
 
 ## Critérios de "pronto" (Definition of Done)
 

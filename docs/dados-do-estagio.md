@@ -8,6 +8,7 @@ Este documento registra os dados confirmados do estágio, substituindo as premis
 
 ## Carga horária e horário
 
+- **Carga horária total prevista do estágio: 510 horas** (03/08/2026 a 03/12/2026). O acompanhamento semanal está em [`registro-de-horas.md`](registro-de-horas.md).
 - **6 horas diárias**, de segunda a sexta-feira (30 horas semanais).
 - **09h00–11h00** e **13h00–17h00**, com intervalo de almoço de **11h00 às 13h00** (2 horas).
 

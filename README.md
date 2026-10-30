@@ -13,23 +13,36 @@ Repositório para organizar meu estágio obrigatório, em um escritório de advo
 
 - [`docs/dados-do-estagio.md`](docs/dados-do-estagio.md): modalidade, carga horária, período, supervisor e professora orientadora confirmados.
 - [`docs/modelo-de-dados.md`](docs/modelo-de-dados.md): entidades e relacionamentos propostos para a plataforma (diagrama ER).
+- [`docs/registro-de-horas.md`](docs/registro-de-horas.md): horas semanais registradas do estágio (total previsto: 510 horas).
 - [`docs/atores-e-usuarios.md`](docs/atores-e-usuarios.md): perfis de usuário (advogado, estagiária, cliente) e o que cada um pode acessar.
 - [`docs/metodologia-agil.md`](docs/metodologia-agil.md): metodologia ágil simplificada adotada e cronograma do projeto.
 - [`docs/logica-de-programacao.md`](docs/logica-de-programacao.md): explicação, com trechos de código, de como o protótipo gera as minutas em DOCX.
 - [`docs/`](docs/): documentação viva do projeto (regras, plano de atividades, requisitos, checklist de formalização e demais registros técnicos).
 - [`ATAS/`](ATAS/): atas numeradas de cada sessão com decisão, entrega ou pendência (em `.md`, `.html` e `.pdf`).
 - [`prototype/`](prototype/): protótipo web navegável (HTML/CSS) do sistema.
-- [`scripts/`](scripts/) e [`services/`](services/): automação Python, incluindo a conversão de Markdown para DOCX.
+- [`scripts/`](scripts/) e [`services/`](services/): automação Python — conversão de Markdown para DOCX, serviço HTTP local, banco SQLite, autenticação, fluxo de aprovação, cadastros e backup.
+- [`tests/`](tests/): testes automatizados (`python -m unittest discover -s tests -t .`).
 - [`identidade-visual/`](identidade-visual/): logotipo (`LOGO.png`) e modelo timbrado (`modelo timbrado.docx`) usados na geração de documentos.
 - [`relatorios/`](relatorios/): versões do relatório de estágio.
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md): princípios técnicos para qualquer implementação neste repositório.
 - [`AGENTS.md`](AGENTS.md): persona persistente do estagiário de Engenharia de Software.
 
+## Como executar (desenvolvimento, somente dados fictícios)
+
+```powershell
+pip install python-docx markdown
+python scripts\popular_dados_ficticios.py --db data\dev.db   # cria usuários de teste; as senhas aparecem uma única vez
+$env:ESTAGIO_DB = "data\dev.db"
+python services\document_service.py                          # abrir http://127.0.0.1:8765/
+python -m unittest discover -s tests -t .                    # testes
+python scripts\backup_banco.py --db data\dev.db              # backup com verificação
+```
+
 ## Próximos passos
 
 1. Confirmar com a UTFPR a modalidade do estágio, a matriz curricular aplicável e os formulários oficiais.
 2. ~~Identificar o professor orientador/PRAE e o supervisor da concedente.~~ Concluído — ver [`docs/dados-do-estagio.md`](docs/dados-do-estagio.md).
-3. Definir o produto ou projeto técnico que será desenvolvido.
+3. ~~Definir o produto ou projeto técnico que será desenvolvido.~~ Concluído — plataforma local de gestão jurídica e automação assistida (ver `ATAS/`).
 4. Aprovar o Plano de Atividades antes do início das atividades, formalizando os dados de [`docs/dados-do-estagio.md`](docs/dados-do-estagio.md) no TCE/PAE oficiais.
 
 > Este repositório é um instrumento de organização. A validação oficial deve ser feita com a UTFPR, especialmente DERAC/COEST, coordenação do curso e professor responsável pelo estágio.

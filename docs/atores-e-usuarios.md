@@ -31,6 +31,6 @@ flowchart LR
 
 ## Observações
 
-- No protótipo atual (`prototype/index.html`), não há login nem separação de perfis — a tela simula a visão do advogado (nome fixo "Mauro Parpinelli" na barra lateral). Autenticação e controle de perfil por usuário ainda são pendências de implementação.
+- Desde a semana 9 ([`ATA 017`](../ATAS/ATA-017-autenticacao-e-perfis.md)) há login por usuário e controle de perfil **no servidor**: `advogado` aprova/devolve minutas e consulta a auditoria; `estagiario` cria, edita e envia minutas para revisão; `cliente` existe no modelo, mas ainda não tem acesso a nada.
 - A revisão do advogado é **obrigatória** antes de qualquer uso da minuta gerada — nenhum documento produzido pelo sistema deve ser considerado final sem essa validação (ver `AGENTS.md`, regra 8).
 - O acesso do cliente é a funcionalidade de menor prioridade no MVP e depende da conclusão do cadastro de processos e da autenticação de uso interno.
